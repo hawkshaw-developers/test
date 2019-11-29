@@ -5,7 +5,7 @@ const MongoClient = require("mongodb").MongoClient;
 const uri =
   "mongodb+srv://admin:admin@cluster0-zb3wd.mongodb.net/test?retryWrites=true&w=majority";
 
-router.get("/getMenu", function(req, res) {
+router.get("/getMenu", function (req, res) {
   const client = new MongoClient(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -13,7 +13,7 @@ router.get("/getMenu", function(req, res) {
   client.connect(err => {
     const collection = client.db("test").collection("Menu");
     // perform actions on the collection object
-    collection.find().toArray(function(err, items) {
+    collection.find().toArray(function (err, items) {
       if (err) throw err;
       res.json(items);
     });
@@ -21,7 +21,7 @@ router.get("/getMenu", function(req, res) {
   });
 });
 
-router.post("/addMenu", function(req, res) {
+router.post("/addMenu", function (req, res) {
   var item = {
     name: req.body.name,
     quantity: 0,
@@ -35,15 +35,15 @@ router.post("/addMenu", function(req, res) {
   client.connect(err => {
     const collection = client.db("test").collection("Menu");
     // perform actions on the collection object
-    collection.insert(item, function(err, resl) {
+    collection.insert(item, function (err, resl) {
       if (err) throw err;
-      res.send("Updated Successfully");
+      res.send("success");
     });
     client.close();
   });
 });
 
-router.get("/populateDefaultMenu", function(req, res) {
+router.get("/populateDefaultMenu", function (req, res) {
   var reader = require("../util/PropertyReader.js");
   console.log(path.join(__dirname, "../"));
   if (reader.getProperty("app.properties", "isDefaultMenuPopulated")) {
@@ -60,9 +60,26 @@ router.get("/populateDefaultMenu", function(req, res) {
       })
       .on("end", () => {
         res.json(dataArr);
-        reader.setProperty("app.properties", "isDefaultMenuPopulated", "true");
+        console.log(dataArr);
+        const client = new MongoClient(uri, {
+          useNewUrlParser: true,
+          useUnifiedTopology: true
+        });
+        client.connect(err => {
+          const collection = client.db("test").collection("Menu");
+          // perform actions on the collection object
+          // collection.insert(dataArr, function (err, resl) {
+          //   if (err) throw err;
+          //   console.log("inserted");
+          // });
+          // 
+          dataArr.forEach((item) => collection.insert(JSON.stringify(item)));
+
+        });
+        client.close();
+        //reader.setProperty("app.properties", "isDefaultMenuPopulated", "true");
       });
   }
 });
-router.post("/addMenuFile", function(req, res) {});
+router.post("/addMenuFile", function (req, res) { });
 module.exports = router;
