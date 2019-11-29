@@ -1,0 +1,143 @@
+
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+
+body {
+overflow-x: hidden;
+font-family: 'Roboto', sans-serif;
+font-size: 16px;
+}
+
+/* Toggle Styles */
+
+#viewport {
+padding-left: 250px;
+-webkit-transition: all 0.5s ease;
+-moz-transition: all 0.5s ease;
+-o-transition: all 0.5s ease;
+transition: all 0.5s ease;
+}
+
+#content {
+width: 100%;
+position: relative;
+margin-right: 0;
+}
+
+/* Sidebar Styles */
+
+#sidebar {
+z-index: 1000;
+position: fixed;
+left: 250px;
+height: 100%;
+margin-left: -250px;
+overflow-y: auto;
+background: #37474F;
+-webkit-transition: all 0.5s ease;
+-moz-transition: all 0.5s ease;
+-o-transition: all 0.5s ease;
+transition: all 0.5s ease;
+}
+
+#sidebar .half{
+  width: 70px;
+}
+#sidebar .full{
+  width: 250px;
+}
+
+#sidebar header {
+background-color: #263238;
+font-size: 20px;
+line-height: 52px;
+text-align: center;
+min-height: 60px;
+}
+
+
+#sidebar header a {
+color: #fff;
+display: block;
+text-decoration: none;
+}
+
+#sidebar header a:hover {
+color: #fff;
+}
+
+.nav{
+  display: block !important;
+}
+#sidebar .nav li{
+  border-bottom: 1px solid #455A64;
+}
+#sidebar .nav li:last-child{
+  margin-bottom: 50px;
+}
+
+#sidebar .nav a{
+background: none;
+font-size: 14px;
+color: #CFD8DC;
+}
+
+.sidebar-anchar-tag-show{
+  display: inline-block !important;
+}
+
+#sidebar .nav li{
+  color: #CFD8DC;
+  padding: 16px 24px;
+}
+
+#sidebar .nav a:hover{
+background: none;
+color: #ECEFF1;
+}
+
+#sidebar .nav a i{
+margin-right: 16px;
+}
+#sidebar footer{
+  color:white;
+  font-size: 14px;
+  text-align: center;
+  padding: 15px;
+}
+
+
+/* table style*/
+.table-btn button {
+  margin: 10px;
+  vertical-align: middle;
+  width: 100px;
+  font-size: 16px;
+}
+.tablecontent-half{
+  padding-left: 0px;
+}
+.tablecontent-full{
+  padding-left: 250px;
+}

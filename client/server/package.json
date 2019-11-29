@@ -1,0 +1,27 @@
+{
+  "name": "hotelmanagement",
+  "version": "1.0.0",
+  "description": "Hotel Management Application By Hawkshaw Developers",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Siva123258/HotelManagement.git"
+  },
+  "author": "sivakumar.g",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Siva123258/HotelManagement/issues"
+  },
+  "homepage": "https://github.com/Siva123258/HotelManagement#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "fast-csv": "^3.4.0",
+    "mongodb": "^3.3.3",
+    "properties-reader": "^0.3.1"
+  }
+}
