@@ -36,13 +36,16 @@ const Widgets = React.lazy(() => import('./views/Widgets/Widgets'));
 const Users = React.lazy(() => import('./views/Users/Users'));
 const User = React.lazy(() => import('./views/Users/User'));
 const BillTable = React.lazy(() => import('./components/billTable'));
+const MenuPage = React.lazy(() => import('./Menu/Menu'));
+const BillingPage = React.lazy(() => import('./Billing-Table/Billing_Table'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/theme', exact: true, name: 'Theme', component: Colors },
-  { path: '/bill/form', name: 'Bill', component: Colors },
+  // { path: '/bill/form', name: 'Bill', component: Colors },
+  { path: '/bill/form', name: 'Bill', component: BillingPage },
   { path: '/theme/typography', name: 'Typography', component: Typography },
   { path: '/base', exact: true, name: 'Base', component: Cards },
   { path: '/base/cards', name: 'Cards', component: Cards },
@@ -80,7 +83,8 @@ const routes = [
   { path: '/charts', name: 'Charts', component: Charts },
   { path: '/users', exact: true, name: 'Users', component: Users },
   { path: '/users/:id', exact: true, name: 'User Details', component: User },
-  { path: '/bill/report', name: 'BillTable', component: BillTable }
+  { path: '/bill/report', name: 'BillTable', component: BillTable },
+  { path:'/menu/form' , name:'Menu' , component:MenuPage }
 ];
 
 export default routes;
