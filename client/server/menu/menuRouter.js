@@ -67,17 +67,11 @@ router.get("/populateDefaultMenu", function (req, res) {
         });
         client.connect(err => {
           const collection = client.db("test").collection("Menu");
-          // perform actions on the collection object
-          // collection.insert(dataArr, function (err, resl) {
-          //   if (err) throw err;
-          //   console.log("inserted");
-          // });
-          // 
-          dataArr.forEach((item) => collection.insert(JSON.stringify(item)));
+          dataArr.forEach((item) => collection.insert({ name: item[0], rate: item[1], code: item[2] }));
 
         });
         client.close();
-        //reader.setProperty("app.properties", "isDefaultMenuPopulated", "true");
+        reader.setProperty("app.properties", "isDefaultMenuPopulated", "true");
       });
   }
 });
