@@ -60,7 +60,7 @@ router.post("/updateMenu", function (req, res) {
     useUnifiedTopology: true
   });
 
-  if (req.body.price == undefined) {
+  if (req.body.rate == undefined) {
     console.log("Item Update");
     client.connect(err => {
       const collection = client.db("test").collection("Menu");
@@ -73,7 +73,7 @@ router.post("/updateMenu", function (req, res) {
   }
   else {
     console.log("Item Add and Update");
-    item.price = req.body.price;
+    item.rate = req.body.rate;
     client.connect(err => {
       const collection = client.db("test").collection("Menu");
       collection.findOneAndUpdate({ "_id": ObjectID(req.body.id) }, { $set: { status: "Deleted" } }, { upsert: false }, function (err, resl) {
