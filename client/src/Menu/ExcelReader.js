@@ -11,7 +11,8 @@ class ExcelReader extends Component {
     this.state = {
       file: {},
       data: [],
-      cols: []
+      cols: [],
+      button: false
     }
     this.handleFile = this.handleFile.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -20,6 +21,10 @@ class ExcelReader extends Component {
   handleChange(e) {
     const files = e.target.files;
     if (files && files[0]) this.setState({ file: files[0] });
+    this.setState({
+      button:true
+    })
+    
   };
  
   handleFile() {
@@ -54,17 +59,21 @@ class ExcelReader extends Component {
   }
  
   render() {
+    const enabled =this.state.button;
     return (
       <div id="upload-file"> 
         <label htmlFor="file">Upload an excel to import</label>
         <br />
-        <input type="file" className="form-control" id="file" accept={SheetJSFT} onChange={this.handleChange} />
+        <input type="file" className="form-control" id="file" accept={SheetJSFT} onChange={this.handleChange} accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
         <br />
        
-        <input type='submit' 
+        <button type='submit' 
         class="btn btn-sm btn-primary"
           value="Import Excel"
-          onClick={this.handleFile} />
+          
+          disabled={!enabled}
+          
+          onClick={this.handleFile}  >Import Excel</button>
           </div>
       
     )
