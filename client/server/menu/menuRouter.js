@@ -4,6 +4,7 @@ var router = express.Router();
 const MongoClient = require("mongodb").MongoClient;
 const uri =
   "mongodb+srv://admin:admin@cluster0-zb3wd.mongodb.net/test?retryWrites=true&w=majority";
+const ObjectID = require('mongodb').ObjectID;
 
 router.get("/getMenu", function (req, res) {
   const client = new MongoClient(uri, {
@@ -24,10 +25,11 @@ router.get("/getMenu", function (req, res) {
 router.post("/addMenu", function (req, res) {
   var item = {
     name: req.body.name,
-    quantity: 0,
     price: req.body.price,
-    code: req.body.code == undefined ? "GEN" : req.body.code
+    code: req.body.code == undefined ? "GEN" : req.body.code,
+    status: "Active"
   };
+  console.log(item);
   const client = new MongoClient(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -41,6 +43,60 @@ router.post("/addMenu", function (req, res) {
     });
     client.close();
   });
+});
+
+router.post("/updateMenu", function (req, res) {
+  console.log(req.body.id + " " + req.body.name);
+
+  var item = {};
+  if (req.body.name != undefined) {
+    item.name = req.body.name;
+  }
+  if (req.body.code != undefined) {
+    item.code = req.body.code;
+  }
+  const client = new MongoClient(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
+
+  if (req.body.rate == undefined) {
+    console.log("Item Update");
+    client.connect(err => {
+      const collection = client.db("test").collection("Menu");
+      collection.findOneAndUpdate({ "_id": ObjectID(req.body.id) }, { $set: item }, { upsert: false }, function (err, resl) {
+        if (err) throw err;
+        res.send("Success");
+      });
+      client.close();
+    });
+  }
+  else {
+    console.log("Item Add and Update");
+    item.rate = req.body.rate;
+    client.connect(err => {
+      const collection = client.db("test").collection("Menu");
+      collection.findOneAndUpdate({ "_id": ObjectID(req.body.id) }, { $set: { status: "Deleted" } }, { upsert: false }, function (err, resl) {
+        if (err) throw err;
+        if (item.name == undefined) {
+          item.name = resl.value.name;
+        }
+        if (item.code == undefined) {
+          item.code = resl.value.code;
+        }
+        item.status = "Active";
+        console.log(item);
+        collection.insertOne(item, (err, resl) => {
+          if (err) throw err;
+          res.send("success")
+        });
+        client.close();
+      });
+
+
+    });
+  }
+
 });
 
 router.get("/populateDefaultMenu", function (req, res) {

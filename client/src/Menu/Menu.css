@@ -1,63 +1,8 @@
-/*
-  
-  #myTable {
-    text-align: center;
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    border: 3px solid #ddd;
-    width: 100%;
-  }
-  
-  #myTable td, #myTable th {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 20%;
-    text-align: center;
-  }
-  
-  #myTable tr:nth-child(even){background-color: #f2f2f2;}
-  
-  #myTable tr:hover {background-color: #ddd;}
-  
-  #myTable th {
-    padding-top: 12px;
-    padding: 12px 20px 50px;
-    text-align: center;
-    background-color: #4CAF50;
-    color: white;
-  } */
-
-  /* #title {
-    text-align: center;
-    font-family: arial, sans-serif;
-  }
-
-  .menu{
-      text-align: center;
-      padding-left: 100px;
-  }
-  #myTable{
-    text-align: center;
-     border: 2px solid black; 
-    border-collapse: separate;
-    width: 100%;
-    height: 100%;
-  }
-  th, td {
-    text-align: left;
-    padding: 8px;
-  }
-
-  #tableDiv{
-   overflow-x:auto;
-  }
-  tr:nth-child(even) {background-color: #8debb4;} */
-
   table {
     border-collapse: collapse;
     width: 100%;
   }
-  
+
   th, td {
     text-align: left;
     padding: 8px;
@@ -66,7 +11,8 @@
       height: 100%;
       width: 100%;
   }
-  
+
+
   .btn{
     margin:3px;
   }
@@ -85,4 +31,7 @@
     }
     .ReactTable{
       border:1px solid #c8ced3
+    }
+    .popup {
+      background-color: rebeccapurple;
     }

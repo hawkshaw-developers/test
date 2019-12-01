@@ -1,14 +1,14 @@
 var express = require("express");
-var bodyParser = require("body-parser");
 
 var menuRoute = require("./menu/menuRouter.js");
 var billRoute = require("./bill/billRouter.js");
 var app = express();
 
-app.get("/", function(req, res) {
+app.get("/", function (req, res) {
   res.send("Welcome to Hotel Management!");
 });
 
+app.use(express.urlencoded());
 app.use(express.json({ limit: "1mb" }));
 
 app.use("/menu", menuRoute);
