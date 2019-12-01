@@ -43,14 +43,15 @@ class BillingTable extends Component {
                 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.11/semantic.min.css"></link>
                 <h1 style={{ color: "red" }}>Billing</h1>
                 <h1>{this.props.tableName}</h1>
+                <Table/>
 
-                <Dropdown
+                {/* <Dropdown
                     placeholder='Select Country'
                     fluid
                     search
                     selection
                     options={countryOptions}
-                />
+                /> */}
             </div>
         );
     }
