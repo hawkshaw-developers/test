@@ -47,6 +47,7 @@
   "scripts": {
     "start": "concurrently \"react-scripts start\" \"node server/index.js\"",
     "dev": "concurrently \"react-scripts start\" \"nodemon server/index.js\"",
+    "ele-dev": "concurrently \"react-scripts start\" \"nodemon server/index.js\" \"electron .\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -66,5 +67,6 @@
       "last 1 safari version"
     ]
   },
+  "main": "main.js",
   "proxy": "http://localhost:5000"
 }

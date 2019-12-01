@@ -13,25 +13,23 @@ class Menu extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            items: [
-                {
-                    id: "1", name: "item_1", rate: "10",code:""
-                }, {
-                    id: "2", name: "item_2", rate: "20",code:""
-                }, {
-                    id: "3", name: "item_3", rate: "30",code:""
-                }
-            ],
+            items: [],
             showPopup: false,
-            modal:false,
+            modal: false,
 
             modalItemName: "",
-            modalRate:0,
-            isEditMode:false,
-            testData:"",
-            codeValue:""
+            modalRate: 0,
+            isEditMode: false,
+            testData: "",
+            codeValue: ""
         }
         this.renderEditable = this.renderEditable.bind(this);
+    }
+    componentDidMount() {
+        fetch("/menu/getMenu").then(res => {
+            return res.json();
+        })
+            .then(items => this.setState({ items }));
     }
     handleNameChange(e) {
         const target = e.target;
@@ -39,120 +37,117 @@ class Menu extends Component {
         const value = target.value;
 
         this.setState({
-          modalItemName: value
+            modalItemName: value
         });
-      }
-      handleRateChange(e) {
+    }
+    handleRateChange(e) {
         const target = e.target;
         const name = target.name;
         const value = target.value;
 
         this.setState({
-          modalRate: value
+            modalRate: value
         });
-      }
+    }
 
-      handleSubmit(e) {
-          let count=Object.keys(this.state.items).length;
-          console.log("The total number of objects in the json ---->",count);
-        this.setState({ modalItemName: this.state.modalItemName,modalRate:this.state.modalRate });
+    handleSubmit(e) {
+        let count = Object.keys(this.state.items).length;
+        console.log("The total number of objects in the json ---->", count);
+        this.setState({ modalItemName: this.state.modalItemName, modalRate: this.state.modalRate });
         this.modalClose();
-        console.log(this.state.modalItemName,this.state.modalRate);
+        console.log(this.state.modalItemName, this.state.modalRate);
         let newItems = this.state.items;
         newItems.push({
-            id:count+1,
-            name:this.state.modalItemName,
-            rate:this.state.modalRate,
-            code:this.state.codeValue
+            id: count + 1,
+            name: this.state.modalItemName,
+            rate: this.state.modalRate,
+            code: this.state.codeValue
 
         });
-        this.setState({items:newItems});
+        this.setState({ items: newItems });
 
-      }
+    }
 
-      modalClose=(event)=> {
+    modalClose = (event) => {
         this.setState({
             modalItemName: "",
-            modalRate:"",
+            modalRate: "",
             modal: false
         });
         this.closePopup();
-      }
+    }
 
     deleteHandler(id) {
         console.log(id + " will be delete");
         const index = this.state.items.findIndex(p => {
             return p.id === id;
         });
-        console.log("Index-->", index);
         let newState = this.state.items.filter(p => {
             return p.id !== id;
         });
 
         this.setState({ items: newState });
-
-
-        console.log("new State ", newState);
     }
 
-    editHandler(){
+    editHandler() {
 
         let currentState = this.state.isEditMode;
-        console.log("Current state of the mode--->",currentState);
-        this.setState({isEditMode:!this.state.isEditMode});
+        console.log("Current state of the mode--->", currentState);
+        this.setState({ isEditMode: !this.state.isEditMode });
     }
 
 
     renderEditable(cellInfo) {
-        if(this.state.isEditMode){
+        if (this.state.isEditMode) {
 
             return (
                 <div
-                  style={{ backgroundColor: "#fafafa" }}
-                  contentEditable
-                  suppressContentEditableWarning
-                  onBlur={e => {
-                    const data = this.state.items[cellInfo.original.id];
-                    let originalState = JSON.parse(JSON.stringify(this.state.items));
-                      console.log("Data ------>>>",data);
-                    originalState[cellInfo.index][cellInfo.column.id]  =e.target.innerHTML;
-                    this.setState({ items:originalState });
-                  }}
-              >{this.state.items[cellInfo.index][cellInfo.column.id]}</div>
-              );
+                    style={{ backgroundColor: "#fafafa" }}
+                    contentEditable
+                    suppressContentEditableWarning
+                    onBlur={e => {
+                        const data = this.state.items[cellInfo.original.id];
+                        let originalState = JSON.parse(JSON.stringify(this.state.items));
+                        console.log("Data ------>>>", data);
+                        originalState[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
+                        this.setState({ items: originalState });
+                    }}
+                >{this.state.items[cellInfo.index][cellInfo.column.id]}</div>
+            );
 
         }
-        else{
-            return(
+        else {
+            return (
                 <div>{this.state.items[cellInfo.index][cellInfo.column.id]}</div>
             );
         }
 
-      }
-      valueChangeHandler=(newData)=>{
-          console.log("Before ------->",this.state.testData);
-          this.setState({testData:newData});
+    }
+    valueChangeHandler = (newData) => {
+        console.log("Before ------->", this.state.testData);
+        this.setState({ testData: newData });
 
-          console.log("Before ------->",this.state.testData);
-          this.setState({
-              items:newData
-          })
-      }
-      handleCodeChange=(event)=>{
-          console.log("code-->",event.target.value);
-          this.setState({codeValue:event.target.value
-        ,showPopup:false
+        console.log("Before ------->", this.state.testData);
+        this.setState({
+            items: newData
+        })
+    }
+    handleCodeChange = (event) => {
+        console.log("code-->", event.target.value);
+        this.setState({
+            codeValue: event.target.value
+            , showPopup: false
         });
-      }
-      togglePopup(){
-          this.setState({showPopup:!this.state.showPopup});
-      }
-      closePopup(){
-          this.setState({showPopup:false});
-      }
-      openPopup(){
-          this.setState({showPopup:true});
-      }
+    }
+    togglePopup() {
+        this.setState({ showPopup: !this.state.showPopup });
+    }
+    closePopup() {
+        this.setState({ showPopup: false });
+    }
+    openPopup() {
+        this.setState({ showPopup: true });
+    }
 
     render() {
         console.log(this.props.myEvent);
@@ -198,43 +193,43 @@ class Menu extends Component {
         ];
         return (
             <div>
-            <div>
+                <div>
 
-                <Popup
+                    <Popup
 
-                    trigger={<button class="button btn btn-ghost-primary active"  onClick={this.openPopup}> Add Data </button>}
+                        trigger={<button class="button btn btn-ghost-primary active" onClick={this.openPopup}> Add Data </button>}
 
-                    modal
-                    closeOnDocumentClick
-                   className="popup"
-                   open={this.state.showPopup}
-                   onClose={this.closePopup.bind(this)}
-                >
-                   <div className="modal">
-                   <a className="close" onClick={this.closeModal}>
-              &times;
+                        modal
+                        closeOnDocumentClick
+                        className="popup"
+                        open={this.state.showPopup}
+                        onClose={this.closePopup.bind(this)}
+                    >
+                        <div className="modal">
+                            <a className="close" onClick={this.closeModal}>
+                                &times;
             </a>
-                       <span>Add Data Here</span><br></br>
-                    <input value={this.state.modalItemName}
-              name="modalItemName"
-              onChange={e => this.handleNameChange(e)} id="code" type="text" placeholder="item_code"></input><br></br>
-                    <input
-                    value={this.state.modalRate}
-                    name="modalRate"
-                    onChange={e => this.handleRateChange(e)}
-                    id="price" type="text" placeholder="item_price"></input><br></br>
-                    <input value={this.state.codeValue} name="codeValue" onChange={e=> this.handleCodeChange(e)} id="codeValue" placeholder="code">
+                            <span>Add Data Here</span><br></br>
+                            <input value={this.state.modalItemName}
+                                name="modalItemName"
+                                onChange={e => this.handleNameChange(e)} id="code" type="text" placeholder="item_code"></input><br></br>
+                            <input
+                                value={this.state.modalRate}
+                                name="modalRate"
+                                onChange={e => this.handleRateChange(e)}
+                                id="price" type="text" placeholder="item_price"></input><br></br>
+                            <input value={this.state.codeValue} name="codeValue" onChange={e => this.handleCodeChange(e)} id="codeValue" placeholder="code">
 
-                    </input><br></br>
-                    <button onClick={e => this.handleSubmit(e)} >Save</button>
-                    <button onClick={this.modalClose.bind(this)}>Cancel</button>
-                    </div>
-                </Popup>
+                            </input><br></br>
+                            <button onClick={e => this.handleSubmit(e)} >Save</button>
+                            <button onClick={this.modalClose.bind(this)}>Cancel</button>
+                        </div>
+                    </Popup>
                 </div>
 
-                <button  class="btn btn-ghost-primary active"onClick={this.editHandler.bind(this)}>{this.state.isEditMode?"Cancel":"Edit"}</button>
+                <button class="btn btn-ghost-primary active" onClick={this.editHandler.bind(this)}>{this.state.isEditMode ? "Cancel" : "Edit"}</button>
 
-                <ExcelReader onValueChange ={this.valueChangeHandler}/>
+                <ExcelReader onValueChange={this.valueChangeHandler} />
 
                 <ReactTable
                     columns={columns}
@@ -247,7 +242,7 @@ class Menu extends Component {
                 >
 
                 </ReactTable>
-                <ExportToExcel posts={this.state.items}/>
+                <ExportToExcel posts={this.state.items} />
                 <CSVLink data={this.state.items}>Download CSV</CSVLink>
             </div>
         );
