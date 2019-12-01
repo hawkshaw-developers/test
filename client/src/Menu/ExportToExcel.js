@@ -10,7 +10,7 @@ render(){
         <div>
             <ReactHTMLTableToExcel
             id="test-table-xls"
-            className="export"
+            className="export button btn btn-sm btn-primary"
             table="table-to-xls"
             fileName="Export.csv"
             sheet="tablexls"

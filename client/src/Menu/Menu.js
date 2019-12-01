@@ -163,9 +163,9 @@ class Menu extends Component {
             {
                 Header: "Actions",
                 Cell: props => {
-                    return (<button style={{ backgroundColor: "red", font: "#fefefe" }} onClick={() => {
+                    return (<button class="btn btn-sm" onClick={() => {
                         this.deleteHandler(props.original.id);
-                    }}>Delete</button>);
+                    }}><i class="fa fa-trash fa-lg"></i></button>);
                 }
             }
         ];
@@ -173,7 +173,7 @@ class Menu extends Component {
             <div>
                 
                 <Popup
-                    trigger={<button className="button"> Add Data </button>}
+                    trigger={<button class="button btn btn-ghost-primary active"> Add Data </button>}
                     modal
                     closeOnDocumentClick
                 >
@@ -190,7 +190,7 @@ class Menu extends Component {
                     <button onClick={this.modalClose.bind(this)}>Cancel</button>
                 </Popup>
 
-                <button onClick={this.editHandler.bind(this)}>{this.state.isEditMode?"Cancel":"Edit"}</button>
+                <button  class="btn btn-ghost-primary active"onClick={this.editHandler.bind(this)}>{this.state.isEditMode?"Cancel":"Edit"}</button>
                 
                 <ExcelReader onValueChange ={this.valueChangeHandler}/>
                
@@ -200,6 +200,7 @@ class Menu extends Component {
                     defaultPageSize={5}
                     showPagination={false}
                     getTrProps={this.onRowClick}
+                    className="table table-responsive-sm table-striped"
 
                 >
                     

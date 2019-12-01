@@ -55,12 +55,14 @@ class ExcelReader extends Component {
  
   render() {
     return (
-      <div>
+      <div id="upload-file"> 
         <label htmlFor="file">Upload an excel to import</label>
         <br />
         <input type="file" className="form-control" id="file" accept={SheetJSFT} onChange={this.handleChange} />
         <br />
+       
         <input type='submit' 
+        class="btn btn-sm btn-primary"
           value="Import Excel"
           onClick={this.handleFile} />
           </div>

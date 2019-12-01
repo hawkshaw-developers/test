@@ -67,3 +67,22 @@
       width: 100%;
   }
   
+  .btn{
+    margin:3px;
+  }
+  #upload-file{
+    margin:20px 0px;
+  }
+  #file{    height: auto;
+    padding: 10px;
+    width: fit-content;}
+    .fa-trash{
+      color: #f5302e;
+    }
+    .rt-resizable-header{
+      background-color: #f0f3f5;
+      border:1px solid #c8ced3;
+    }
+    .ReactTable{
+      border:1px solid #c8ced3
+    }
