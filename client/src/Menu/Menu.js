@@ -24,7 +24,7 @@ class Menu extends Component {
             ],
             showPopup: false,
             modal:false,
-           
+
             modalItemName: "",
             modalRate:0,
             isEditMode:false,
@@ -37,7 +37,7 @@ class Menu extends Component {
         const target = e.target;
         const name = target.name;
         const value = target.value;
-    
+
         this.setState({
           modalItemName: value
         });
@@ -46,7 +46,7 @@ class Menu extends Component {
         const target = e.target;
         const name = target.name;
         const value = target.value;
-    
+
         this.setState({
           modalRate: value
         });
@@ -67,7 +67,7 @@ class Menu extends Component {
 
         });
         this.setState({items:newItems});
-        
+
       }
 
       modalClose=(event)=> {
@@ -101,8 +101,8 @@ class Menu extends Component {
         console.log("Current state of the mode--->",currentState);
         this.setState({isEditMode:!this.state.isEditMode});
     }
-  
-    
+
+
     renderEditable(cellInfo) {
         if(this.state.isEditMode){
 
@@ -127,7 +127,7 @@ class Menu extends Component {
                 <div>{this.state.items[cellInfo.index][cellInfo.column.id]}</div>
             );
         }
-       
+
       }
       valueChangeHandler=(newData)=>{
           console.log("Before ------->",this.state.testData);
@@ -190,25 +190,27 @@ class Menu extends Component {
             {
                 Header: "Actions",
                 Cell: props => {
-                    return (<button style={{ backgroundColor: "red", font: "#fefefe" }} onClick={() => {
+                    return (<button class="btn btn-sm" onClick={() => {
                         this.deleteHandler(props.original.id);
-                    }}>Delete</button>);
+                    }}><i class="fa fa-trash fa-lg"></i></button>);
                 }
             }
         ];
         return (
             <div>
             <div>
-                
+
                 <Popup
-                    trigger={<button className="button" onClick={this.openPopup} > Add Data </button>}
+
+                    trigger={<button class="button btn btn-ghost-primary active"  onClick={this.openPopup}> Add Data </button>}
+
                     modal
                     closeOnDocumentClick
                    className="popup"
                    open={this.state.showPopup}
                    onClose={this.closePopup.bind(this)}
                 >
-                   <div className="modal"> 
+                   <div className="modal">
                    <a className="close" onClick={this.closeModal}>
               &times;
             </a>
@@ -230,26 +232,27 @@ class Menu extends Component {
                 </Popup>
                 </div>
 
-                <button onClick={this.editHandler.bind(this)}>{this.state.isEditMode?"Cancel":"Edit"}</button>
-                
+                <button  class="btn btn-ghost-primary active"onClick={this.editHandler.bind(this)}>{this.state.isEditMode?"Cancel":"Edit"}</button>
+
                 <ExcelReader onValueChange ={this.valueChangeHandler}/>
-               
+
                 <ReactTable
                     columns={columns}
                     data={this.state.items}
                     defaultPageSize={5}
                     showPagination={false}
                     getTrProps={this.onRowClick}
+                    className="table table-responsive-sm table-striped"
 
                 >
-                    
+
                 </ReactTable>
                 <ExportToExcel posts={this.state.items}/>
                 <CSVLink data={this.state.items}>Download CSV</CSVLink>
             </div>
         );
     }
- 
+
 
 }
 
