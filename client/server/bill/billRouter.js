@@ -34,6 +34,13 @@ router.get("/getBill", function (req, res) {
     filter.setHours(23, 59, 59, 999);
     var maxDate = filter.getTime();
   }
+  else {
+    filter = new Date(Date.now());
+    filter.setHours(0, 0, 0, 0);
+    var minDate = filter.getTime();
+    filter.setHours(23, 59, 59, 999);
+    var maxDate = filter.getTime();
+  }
   client.connect(err => {
     const collection = client.db("test").collection("Bill");
     collection.find(filter != undefined ? { $and: [{ Added_Time: { $gt: minDate } }, { Added_Time: { $lt: maxDate } }] } : {}).toArray(function (err, items) {
