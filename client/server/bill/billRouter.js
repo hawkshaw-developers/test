@@ -64,4 +64,10 @@ router.get("/getBill", function (req, res) {
     });
   });
 });
+
+router.get("/getMonthlySales", function (req, res) {
+  console.log("came here");
+  var dbhelper = require("../util/DBFunctions");
+  res.send(dbhelper.getMonthlySales());
+});
 module.exports = router;
