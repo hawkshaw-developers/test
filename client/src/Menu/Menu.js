@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import "./Menu.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactTable from 'react-table';
-import '../../node_modules/react-table/react-table.css';
+import "react-table/react-table.css"
 import Popup from "reactjs-popup";
 import ExportToExcel from './ExportToExcel';
 import { CSVLink } from "react-csv";
@@ -74,6 +74,7 @@ class Menu extends Component {
         this.setState({
             modalItemName: "",
             modalRate:"",
+            codeValue:"",
             modal: false
         });
         this.closePopup();
@@ -141,7 +142,7 @@ class Menu extends Component {
       handleCodeChange=(event)=>{
           console.log("code-->",event.target.value);
           this.setState({codeValue:event.target.value
-        ,showPopup:false
+        
         });
       }
       togglePopup(){
@@ -199,42 +200,44 @@ class Menu extends Component {
         return (
             <div>
             <div>
-                
+            <button className="button" onClick={this.openPopup.bind(this)} > Add Data </button>
                 <Popup
-                    trigger={<button className="button" onClick={this.openPopup} > Add Data </button>}
+                    
                     modal
                     closeOnDocumentClick
-                   className="popup"
-                   open={this.state.showPopup}
-                   onClose={this.closePopup.bind(this)}
+                    open={this.state.showPopup}
+                    closeOnDocumentClick
+                    onClose={this.closePopup.bind(this)}
+                
                 >
-                   <div className="modal"> 
-                   <a className="close" onClick={this.closeModal}>
-              &times;
-            </a>
+                   
                        <span>Add Data Here</span><br></br>
                     <input value={this.state.modalItemName}
-              name="modalItemName"
-              onChange={e => this.handleNameChange(e)} id="code" type="text" placeholder="item_code"></input><br></br>
+                    name="modalItemName"
+                    onChange={e => this.handleNameChange(e)} id="code" type="text" placeholder="item_code"></input><br></br>
                     <input
                     value={this.state.modalRate}
                     name="modalRate"
                     onChange={e => this.handleRateChange(e)}
                     id="price" type="text" placeholder="item_price"></input><br></br>
-                    <input value={this.state.codeValue} name="codeValue" onChange={e=> this.handleCodeChange(e)} id="codeValue" placeholder="code">
+                    <input 
+                    // value={this.state.codeValue}
+                    name="codeValue" 
+                    onChange={e=> this.handleCodeChange(e)} id="codeValue" type="text" placeholder="code">
 
                     </input><br></br>
                     <button onClick={e => this.handleSubmit(e)} >Save</button>
                     <button onClick={this.modalClose.bind(this)}>Cancel</button>
-                    </div>
+                    {/* </div> */}
                 </Popup>
                 </div>
 
-                <button onClick={this.editHandler.bind(this)}>{this.state.isEditMode?"Cancel":"Edit"}</button>
+                <button id="editBtn" onClick={this.editHandler.bind(this)}>{this.state.isEditMode?"Cancel":"Edit"}</button>
                 
                 <ExcelReader onValueChange ={this.valueChangeHandler}/>
                
                 <ReactTable
+                    
                     columns={columns}
                     data={this.state.items}
                     defaultPageSize={5}
