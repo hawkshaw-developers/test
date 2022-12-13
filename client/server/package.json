@@ -19,7 +19,7 @@
   "homepage": "https://github.com/Siva123258/HotelManagement#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "fast-csv": "^3.4.0",
     "mongodb": "^3.3.3",
     "properties-reader": "^0.3.1"
